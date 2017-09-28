@@ -3,4 +3,4 @@
 OCR for HKID
 
 ### Sample output
-[OCR separate image output](alucard001.github.com/ocr-for-hkid/hkid-output.png)
+![OCR separate image output](https://alucard001.github.com/ocr-for-hkid/hkid-output.png)
