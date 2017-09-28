@@ -16,7 +16,8 @@ import base64
 # import pytesseract
 
 # Google API key for Vision cloud
-KEY = "AIzaSyCY080lt61QIr8tdjXC8tmLNV9kIROHIQM"
+with open('google_key.txt') as f:
+	KEY = f.read();f.closed
 
 GOOGLE_VISION_API = "https://vision.googleapis.com/v1/images:annotate?key=" + KEY
 
