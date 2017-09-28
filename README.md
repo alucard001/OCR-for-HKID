@@ -14,8 +14,5 @@ It will return a JSON string, like below.
 
 `{'result': ['李智能', 'LEE, Chi Nan', '2621 2535 5174', '出生日期Date of Birth', '女F', '01-01-1968', 'k AZ', '簽發日期Date of Issue', '(01-79)']}`
 
-### Sample output - Text
-![Sample text output](https://github.com/alucard001/OCR-for-HKID/raw/master/hkid-ocr-output.png)
-
-### Sample output - How image is splitted
+### Sample output - How image is splitted when using -d/--debug
 ![OCR separate image output](https://github.com/alucard001/OCR-for-HKID/raw/master/hkid-output.png)
