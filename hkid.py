@@ -8,6 +8,10 @@ import cv2
 import requests, json
 import base64
 
+import os
+# https://stackoverflow.com/questions/17359698/how-to-get-the-current-working-directory-using-python-3
+os.chdir(os.path.dirname(os.path.abspath(__file__)))
+
 # try:
 #     import Image
 # except ImportError:
@@ -197,8 +201,9 @@ for r in result['responses']:
 cv2.imshow("Image", img) if show_debug else ''
 
 # Print final result
-result = json.loads(json.dumps({"result": allTexts}, ensure_ascii=False).encode('utf8'))
-print(result)
+# result = json.dumps({'result': allTexts}, ensure_ascii=False).encode('utf8')
+result = json.dumps({'result': allTexts})
+print(str(result))
 
 # Press ESC to close all windows
 if show_debug:

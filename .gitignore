@@ -1,3 +1,6 @@
 google_key.txt
 returned_json.txt
 Pipfile*
+hkids
+hkids/*
+*.php
