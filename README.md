@@ -11,6 +11,9 @@ Description will be provided later.
 It will return a JSON string.
 
 ### Sample output - Text
+
+`{'result': ['李智能', 'LEE, Chi Nan', '2621 2535 5174', '出生日期Date of Birth', '女F', '01-01-1968', 'k AZ', '簽發日期Date of Issue', '(01-79)']}`
+
 ![Sample text output](https://github.com/alucard001/OCR-for-HKID/raw/master/hkid-ocr-output.png)
 
 ### Sample output - How image is splitted
