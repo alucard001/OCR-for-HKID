@@ -1,6 +1,15 @@
-# OCR for HKID using Python 3 and OpenCV 3
+# OCR for HKID using Python 3 and OpenCV 3 / 基於Python3及OpenCV3 - 香港身份證OCR
 
-OCR for HKID
+OCR for HKID - 香港身份證OCR
 
-### Sample output
+Description will be provided later.
+
+## How to use? / 如何使用?
+
+`python hkid.py -i <image_path> [-d]`
+
+### Sample output - Text
+![Sample text output](https://github.com/alucard001/OCR-for-HKID/raw/master/hkid-ocr-output.png)
+
+### Sample output - How image is splitted
 ![OCR separate image output](https://github.com/alucard001/OCR-for-HKID/raw/master/hkid-output.png)
