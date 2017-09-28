@@ -16,11 +16,14 @@ Actually if you look at my code, I include (but commented) [pytesseract](https:/
 
 ## How to use? / 如何使用?
 
-`python hkid.py -i <image_path> [-d]`
+`python hkid.py -i <image_path> [-d/--debug]`
 
-### Sample output - Text
-![Sample text output](https://github.com/alucard001/OCR-for-HKID/raw/master/hkid-ocr-output.png)
+e.g. `python hkid.py -i hkid_sample-no-sample.jpg`
 
-### Sample output - How image is splitted
+It will return a JSON string, like below.
+
+`{'result': ['李智能', 'LEE, Chi Nan', '2621 2535 5174', '出生日期Date of Birth', '女F', '01-01-1968', 'k AZ', '簽發日期Date of Issue', '(01-79)']}`
+
+### Sample output - How image is splitted when using -d/--debug
 ![OCR separate image output](https://github.com/alucard001/OCR-for-HKID/raw/master/hkid-output.png)
 
