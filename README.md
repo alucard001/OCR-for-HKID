@@ -6,7 +6,9 @@ Description will be provided later.
 
 ## How to use? / 如何使用?
 
-`python hkid.py -i <image_path> [-d]`
+`python hkid.py -i <image_path> [-d/--debug]`
+
+It will return a JSON string.
 
 ### Sample output - Text
 ![Sample text output](https://github.com/alucard001/OCR-for-HKID/raw/master/hkid-ocr-output.png)
