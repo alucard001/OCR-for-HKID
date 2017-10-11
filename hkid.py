@@ -68,7 +68,7 @@ img = cv2.imread(args['image'])
 rectKernel = cv2.getStructuringElement(cv2.MORPH_RECT, (12, 3))
 
 # Resize image to 600px width
-img = imutils.resize(img, width=600)
+img = imutils.resize(img, width=1000)
 full_height, full_width, channels = img.shape
 
 print("height: ", full_height, "width: ", full_width, "channels: ", channels) if show_debug else ''
@@ -78,12 +78,12 @@ gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 cv2.imshow("gray", gray) if show_debug else ''
 
 # Apply threshold, value lower than 120 is not black, value bigger than/equal to 255 is black
-T, threshold = cv2.threshold(gray, 120, 255, cv2.THRESH_BINARY)
+T, threshold = cv2.threshold(gray, 100, 255, cv2.THRESH_BINARY)
 cv2.imshow("Threshold", threshold) if show_debug else ''
 print("T: ", T) if show_debug else ''
 
 # Erode the text to bigger black area using the rectangle kernal above
-threshold = cv2.erode(src=threshold, kernel=rectKernel, iterations=2)
+threshold = cv2.erode(src=threshold, kernel=rectKernel, iterations=3)
 cv2.imshow('Threshold(Erode)', threshold) if show_debug else ''
 
 # Find contours of the image
@@ -119,15 +119,18 @@ for i, c in enumerate(cnts):
 	# therefore for security reason, my colleague commented that it would be better to not capture the bottom part of HKID, which
 	# means I only capture the first 80% (4/5) of the whole area to avoid the HKID number.
 
-	if(	y > (full_height/20) and y < (full_height * 0.8)
-		and (contour_area/total_eligible_area >= 0.004)
-		and aspect_ratio >= 2.5 and aspect_ratio <= 10):
+	# Print the scanned result
+	print(	"x: ", x, "y: ", y, "w: ", w, "h: ", h,
+			"w/h", aspect_ratio,
+			"w*h", contour_area,
+			"contour_area/total_eligible_area", contour_area/total_eligible_area) if show_debug else ''
 
-		# Print the scanned result
-		print(	"x: ", x, "y: ", y, "w: ", w, "h: ", h,
-				"w/h", aspect_ratio,
-				"w*h", contour_area,
-				"contour_area/total_eligible_area", contour_area/total_eligible_area) if show_debug else ''
+	if(
+		y > (full_height/20)			# Include HKID header?
+		# and y < (full_height * 0.8)	# Include HKID?
+		and (contour_area/total_eligible_area >= 0.003)
+		and aspect_ratio >= 2.0 and aspect_ratio <= 10
+		):
 
 		# Add note to contour
 		# cv2.putText(img, str(i), (x, y - 7), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255,255,255), 1, cv2.LINE_AA)
@@ -167,7 +170,7 @@ for i, c in enumerate(cnts):
 		# print("OCR: ", pytesseract.image_to_string(Image.open(filename), lang='eng+chi_tra'))
 
 		# Add rectangle on image to highlight the scanned area
-		cv2.rectangle(img, (x,y), (x + w, y + h), (0, 255, 0), 1)
+		cv2.rectangle(img, (x,y), (x + w, y + h), (0, 255, 0), 1) if show_debug else ''
 
 # Convert request from dict to JSON
 json_data = json.dumps({"requests": allRequests}, indent=4)
@@ -187,15 +190,16 @@ if show_debug:
 
 # Loop through the result array and save the scanned text
 allTexts = []
-for r in result['responses']:
+if 'responses' in result:
+	for r in result['responses']:
 
-	if len(r) > 0 and 'fullTextAnnotation' in r:
+		if len(r) > 0 and 'fullTextAnnotation' in r:
 
-		# https://stackoverflow.com/questions/1185524/how-to-trim-whitespace-including-tabs
-		text = r['fullTextAnnotation']['text'].strip(' \t\n\r')
-		allTexts.append(text)
+			# https://stackoverflow.com/questions/1185524/how-to-trim-whitespace-including-tabs
+			text = r['fullTextAnnotation']['text'].strip(' \t\n\r')
+			allTexts.append(text)
 
-		print("Scanned text: ", text) if show_debug else ''
+			print("Scanned text: ", text) if show_debug else ''
 
 # Show the whole image with green rectangle
 cv2.imshow("Image", img) if show_debug else ''
